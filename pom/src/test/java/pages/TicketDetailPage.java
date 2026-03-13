@@ -5,51 +5,38 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class TicketDetailPage extends BasePage {
-    
+
     @FindBy(css = "h1")
     private WebElement ticketTitle;
-    
-    @FindBy(xpath = "/html/body/div/div[1]/form/div[1]/select")
+
+    @FindBy(css = "form select")
     private WebElement prioritySelect;
-    
-    @FindBy(xpath = "/html/body/div/div[1]/form/button")
+
+    @FindBy(css = "form button[type='submit']")
     private WebElement saveButton;
-    
-    @FindBy(xpath = "//div[contains(text(),'Alta')] | //span[contains(text(),'Alta')] | //*[contains(text(),'Alta')]")
-    private WebElement priorityBadgeHigh;
-    
-    @FindBy(xpath = "//div[contains(text(),'Media')] | //span[contains(text(),'Media')] | //*[contains(text(),'Media')]")
-    private WebElement priorityBadgeMedium;
-    
-    @FindBy(xpath = "//div[contains(text(),'Baja')] | //span[contains(text(),'Baja')] | //*[contains(text(),'Baja')]")
-    private WebElement priorityBadgeLow;
-    
+
+    @FindBy(xpath = "/html/body/div/div[1]/div/div[1]/span[3]")
+    private WebElement prioritySpan;
+
     public boolean isTicketDetailDisplayed() {
-        waitABit(2000);
+        waitFor(ticketTitle).shouldBeVisible();
         return ticketTitle.isDisplayed();
     }
-    
+
     public void selectPriority(String priority) {
-        waitABit(1000);
+        waitFor(prioritySelect).shouldBeVisible();
         Select select = new Select(prioritySelect);
         select.selectByVisibleText(priority);
-        waitABit(500);
     }
-    
+
     public void clickSaveButton() {
-        waitABit(1000);
+        waitFor(saveButton).shouldBeVisible();
         saveButton.click();
-        waitABit(5000);
     }
-    
+
     public boolean isPriorityUpdated(String expectedPriority) {
-        waitABit(2000);
-        return switch (expectedPriority) {
-            case "Alta" -> priorityBadgeHigh.isDisplayed();
-            case "Media" -> priorityBadgeMedium.isDisplayed();
-            case "Baja" -> priorityBadgeLow.isDisplayed();
-            default -> false;
-        };
+        waitFor(prioritySpan).shouldBeVisible();
+        return prioritySpan.getText().contains(expectedPriority);
     }
-    
+
 }

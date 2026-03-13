@@ -1,6 +1,5 @@
 package stepdefinitions;
 
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.And;
@@ -11,26 +10,6 @@ public class TicketManagementStepDefinitions {
     
     @Steps
     private TicketManagementSteps ticketSteps;
-    
-    @Given("the admin is on the login page")
-    public void theAdminIsOnTheLoginPage() {
-        ticketSteps.openLoginPage();
-    }
-    
-    @When("the admin enters email {string} and password {string}")
-    public void theAdminEntersEmailAndPassword(String email, String password) {
-        ticketSteps.enterLoginCredentials(email, password);
-    }
-    
-    @And("the admin submits the login form")
-    public void theAdminSubmitsTheLoginForm() {
-        ticketSteps.submitLoginForm();
-    }
-    
-    @Then("the admin should see the tickets dashboard")
-    public void theAdminShouldSeeTheTicketsDashboard() {
-        ticketSteps.verifyTicketsDashboard();
-    }
     
     @When("the admin navigates to create ticket page")
     public void theAdminNavigatesToCreateTicketPage() {
